@@ -19,14 +19,14 @@ app.use("/user", user);
 app.use("/employee", employee);
 
 // Connect to MongoDB 
-mongoose.connect("mongodb://pothole-detection-db:DMDorDeN3mTagIA0ZhSqiARvq6ZnhoEG7MWVfmzWYq1F0Lu0OGNXHb8MbVvL89BKbVXMygQqrJgJACDbY4YKzQ==@pothole-detection-db.mongo.cosmos.azure.com:10255/Pothole?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@pothole-detection-db@", {
+mongoose.connect(DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
 // Start the server
-app.listen(PORT, IP, () => {
-    console.log(`Server is running on http://${IP}:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 
