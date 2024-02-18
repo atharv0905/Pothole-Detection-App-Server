@@ -1,5 +1,6 @@
 const multer = require('multer');
 const Router = require('express');
+const path = require('path');
 const router = Router();
 const bodyParser = require('body-parser');
 const potholeController = require('../controllers/potholeController');
@@ -9,15 +10,16 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // ----------------------------------------------------------------------------------------------------------------------------------
 // Multer configuration
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+  destination: function (req, file, cb) {
       cb(null, './uploads/') // save uploaded files in the 'uploads' directory
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname); // use the original file name
-    }
-  });
-  
-  const upload = multer({ storage: storage });
+  },
+  filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, uniqueSuffix + path.extname(file.originalname)); // generate a unique filename
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // Multer configuration
 // ----------------------------------------------------------------------------------------------------------------------------------
